@@ -53,24 +53,27 @@
         {% endfor %}
 
         <!-- Featured Posts -->
-        <h3 class="text-uppercase text-warning" style="letter-spacing: 2px;">Category - Dynamic Category</h3>
+        <h3 class="text-uppercase text-warning" style="letter-spacing: 2px;">Category - {{ category }}</h3>
         <div class="row mb-2">
-            
-            {% for post in posts %}
-                    <div class="col-md-6">
-                        <div class="card border-0" >
-                            <div class="card-body">
-                                <h3>{{ post.title }}</h3>
-                                <small class="mb-1 text-muted">{{ post.created_at | date:"F d, Y" }} | {{ post.author }}</small>
-                                <p class="card-text">{{ post.short_description | truncatewords:20 }}</p>
+            {% if posts %}
+                {% for post in posts %}
+                        <div class="col-md-6">
+                            <div class="card border-0" >
+                                <div class="card-body">
+                                    <h3>{{ post.title }}</h3>
+                                    <small class="mb-1 text-muted">{{ post.created_at | date:"F d, Y" }} | {{ post.author }}</small>
+                                    <p class="card-text">{{ post.short_description | truncatewords:20 }}</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-            {% endfor %}
+                {% endfor %}
+            {% else %}
+                <p>No posts available in this category.</p>
+            {% endif %}
         </div>
     </div>
     <footer class="blog-footer">
-        <p>Django blog built with � by <a href="#">Rathan Kumar</a></p>
+        <p>Django blog built with by <a href="#">Mayank Singh</a></p>
     </footer>
 </body>
 </html>
