@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<div class="container p-0">
+    <main role="main" class="container p-0">
+        <div class="row">
+
+            <div class="col-md-8 blog-main">
+
+                <div class="blog-post">
+                    <h1 class="blog-post-title">{{ single_post.title }}</h1>
+
+                    <p class="blog-post-meta">
+                        {{ single_post.created_at | date:"F d, Y" }} by
+                        <a href="#">{{ single_post.author.first_name }} {{ single_post.author.last_name }}</a>
+                    </p>
+
+                    <p class="lead">{{ single_post.short_description }}</p>
+
+                    {% if single_post.featured_image %}
+                        <img src="{{ single_post.featured_image.url }}" alt="{{ single_post.title }}" class="img-fluid rounded mb-4">
+                    {% endif %}
+
+                    <p>{{ single_post.blog_body }}</p>
+                </div><!-- /.blog-post -->
+
+                <nav class="blog-pagination">
+                    <a class="btn btn-outline-primary" href="{% url 'home' %}">Back to Home</a>
+                </nav>
+
+            </div><!-- /.blog-main -->
+
+            <aside class="col-md-4 blog-sidebar">
+                <div class="p-3 mb-3 bg-light rounded">
+                    <h4 class="font-italic">Category</h4>
+                    <p class="mb-0">
+                        <a href="{% url 'posts_by_category' single_post.category.id %}" class="badge badge-primary">
+                            {{ single_post.category.category_name }}
+                        </a>
+                    </p>
+                </div>
+
+                <div class="p-3 mb-3 bg-light rounded">
+                    <h4 class="font-italic">Status</h4>
+                    <p class="mb-0">
+                        <span class="badge badge-success">{{ single_post.status }}</span>
+                    </p>
+                </div>
+
+                <div class="p-3">
+                    <h4 class="font-italic">About the Author</h4>
+                    <p class="mb-0">{{ single_post.author.first_name }} {{ single_post.author.last_name }}</p>
+                </div>
+
+                <div class="p-3">
+                    <h4 class="font-italic">Follow Us</h4>
+                    <ol class="list-unstyled">
+                        <li><a href="#">GitHub</a></li>
+                        <li><a href="#">LinkedIn</a></li>
+                    </ol>
+                </div>
+            </aside><!-- /.blog-sidebar -->
+
+        </div><!-- /.row -->
+    </main><!-- /.container -->
+</div>
+
+{% endblock %}
