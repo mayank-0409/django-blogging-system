@@ -3,7 +3,13 @@
 
 {% block content %}
 
-<div class="container p-0">
+<div class="container p-0 mt-4">
+
+    <form class="d-flex mb-4" method="GET">
+        <input class="form-control me-2" type="search" name="keyword" placeholder="Search posts..." aria-label="Search">
+        <button class="btn btn-outline-primary" type="submit">Search</button>
+    </form>
+
     <main role="main" class="container p-0">
         <div class="row">
 
@@ -17,16 +23,17 @@
                         <a href="#">{{ single_post.author.first_name }} {{ single_post.author.last_name }}</a>
                     </p>
 
-                    <p class="lead">{{ single_post.short_description }}</p>
-
                     {% if single_post.featured_image %}
                         <img src="{{ single_post.featured_image.url }}" alt="{{ single_post.title }}" class="img-fluid rounded mb-4">
                     {% endif %}
 
+                    <p class="lead">{{ single_post.short_description }}</p>
+
                     <p>{{ single_post.blog_body }}</p>
+
                 </div><!-- /.blog-post -->
 
-                <nav class="blog-pagination">
+                <nav class="blog-pagination mb-4">
                     <a class="btn btn-outline-primary" href="{% url 'home' %}">Back to Home</a>
                 </nav>
 
@@ -35,23 +42,11 @@
             <aside class="col-md-4 blog-sidebar">
                 <div class="p-3 mb-3 bg-light rounded">
                     <h4 class="font-italic">Category</h4>
-                    <p class="mb-0">
-                        <a href="{% url 'posts_by_category' single_post.category.id %}" class="badge badge-primary">
-                            {{ single_post.category.category_name }}
-                        </a>
-                    </p>
-                </div>
-
-                <div class="p-3 mb-3 bg-light rounded">
-                    <h4 class="font-italic">Status</h4>
-                    <p class="mb-0">
-                        <span class="badge badge-success">{{ single_post.status }}</span>
-                    </p>
-                </div>
-
-                <div class="p-3">
-                    <h4 class="font-italic">About the Author</h4>
-                    <p class="mb-0">{{ single_post.author.first_name }} {{ single_post.author.last_name }}</p>
+                    <nav class="d-flex flex-column">
+                        {% for category in categories %}
+                            <a class="py-2 text-muted text-decoration-none border-bottom border-light" href="{% url 'posts_by_category' category.id %}">{{ category.category_name }}</a>
+                        {% endfor %}
+                    </nav>
                 </div>
 
                 <div class="p-3">
