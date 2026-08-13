@@ -31,3 +31,6 @@ def blogs(request, slug):
         'single_post': single_post
     }
     return render(request, 'blogs.html', context)
+
+def search(request):
+    return render(request, 'search.html')
