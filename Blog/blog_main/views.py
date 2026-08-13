@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from blogs.models import Category, Blog
 from About.models import About
+from .forms import RegistrationForm
 
 def home(request):
     featured_posts = Blog.objects.filter(is_featured=True, status='Published').order_by('updated_at')
@@ -19,3 +20,10 @@ def home(request):
         'about': about,
     }
     return render(request, 'home.html', context)
+
+def register(request):
+    form = RegistrationForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'register.html', context)
