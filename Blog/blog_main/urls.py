@@ -31,6 +31,8 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
+    # Dashboards
+    path('dashboard/', include('dashboard.urls')),
 ]
 
 if settings.DEBUG:
