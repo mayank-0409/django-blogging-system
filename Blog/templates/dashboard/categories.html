@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <div class="row">
         <!-- LOAD THE SIDE BAR -->
         {% include 'dashboard/sidebar.html' %}
@@ -27,7 +26,9 @@
                             <td>{{ cat.created_at }}</td>
                             <td>{{ cat.updated_at }}</td>
                             <td>
-                                <i class="fa-regular fa-square-check"></i>
+                                <a href=""><i class="fa fa-edit text-success"></i></a>
+                                &nbsp;
+                                <a href=""><i class="fa fa-trash text-danger"></i></a>
                             </td>
                         </tr>
                     {% endfor %}
