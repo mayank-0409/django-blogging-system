@@ -2,18 +2,12 @@
 
 {% block content %}
     <div class="row">
-        <!-- LEFT SIDE BAR -->
-        <div class="col-md-3">
-            <div class="nav flex-column nav-pills bg-light" aria-orientation="vertical">
-                <a href="" class="nav-links text-dark bg-warning">Dashboard</a>
-                <a href="" class="nav-links text-dark">Categories</a>
-                <a href="" class="nav-links text-dark">Posts</a>
-                <a href="" class="nav-links text-dark">Logout</a>
-            </div>
-        </div>
+        <!-- LOAD THE SIDE BAR -->
+        {% include 'dashboard/sidebar.html' %}
 
-        <!-- rIGHT SIDE CONTENT -->
+        <!-- RIGHT SIDE CONTENT -->
         <div class="col-md-9">
+            <span>Logged in as <b>{{ user }}</b></span>
             <div class="row">
                 <div class="col">
                     <div class="card border-default mb-3">
