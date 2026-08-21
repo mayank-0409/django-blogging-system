@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from .forms import CategoryForm, BlogPostForm
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
+from . forms import AddUserForm 
 
 # Create your views here.
 
@@ -106,3 +107,10 @@ def users(request):
         'users': users,
     }
     return render(request, 'dashboard/users.html', context)
+
+def add_user(request):
+    form = AddUserForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'dashboard/add_user.html', context)
