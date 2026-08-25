@@ -26,7 +26,7 @@
                     <p>{{ single_post.blog_body }}</p>
 
                     <!-- Comments -->
-                    <h4>Comments ({{ comments_count }})</h4>
+                    <h4>Comments ({{ comment_count }})</h4>
                     {% if comments %}
                         {% for comment in comments %}
                             <div class="card mt-1">
@@ -46,13 +46,17 @@
                     <br>
 
                     <div class="form-group">
-                        <form action="" method="POST">
-                            {% csrf_token %}
-                            <div class="form-group">
-                                <textarea name="comment" class="form-control" placeholder="Write your comment"></textarea>
-                                <input type="submit" value="submit" class="btn btn-primary mt-2">
-                            </div>
-                        </form>
+                        {% if user.is_authenticated %}
+                            <form action="" method="POST">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <textarea name="comment" class="form-control" placeholder="Write your comment"></textarea>
+                                    <input type="submit" value="submit" class="btn btn-primary mt-2">
+                                </div>
+                            </form>
+                        {% else %}
+                            <h4>Please <span><a href="{% url 'login' %}">Login</a></span> to write a comment</h4>
+                        {% endif %}
                     </div>
 
                 </div><!-- /.blog-post -->
