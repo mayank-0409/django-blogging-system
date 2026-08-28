@@ -2,16 +2,28 @@
 
 {% block content %}
 
-    <h3 class="" style="letter-spacing: 2px;">Search Term - {{ keyword }}</h3>
-        <div class="row mb-2">
+<section class="mb-5 p-4 border rounded-4 shadow-sm bg-white">
+    <div class="d-flex align-items-center mb-4">
+        <div class="bg-warning me-3" style="width: 4px; height: 32px; border-radius: 2px;"></div>
+        <h3 class="text-uppercase fw-bold mb-0" style="letter-spacing: 2px;">Search Term - {{ keyword }}</h3>
+    </div>
+    <div class="row g-4 my-3">
+        <div class="row">
             {% if blogs %}
                 {% for blog in blogs %}
                         <div class="col-md-6">
-                            <div class="card border-0" >
-                                <div class="card-body">
-                                    <h3><a href="{% url 'blogs' blog.slug %}" class="text-dark">{{ blog.title }}</a></h3>
-                                    <small class="mb-1 text-muted">{{ blog.created_at|date:"F d, Y" }} | {{ blog.author }}</small>
-                                    <p class="card-text">{{ blog.short_description | truncatewords:20 }}</p>
+                            <div class="card border shadow rounded-3 overflow-hidden transition-hover">
+                                <div class="card-body p-4">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <small class="text-muted">{{ blog.created_at|date:"F d, Y" }} | {{ blog.author }}</small>
+                                    </div>
+                                    <h4 class="card-title fw-bold mt-2">
+                                        <a href="{% url 'blogs' blog.slug %}" class="text-decoration-none text-dark">{{ blog.title }}</a>
+                                    </h4>
+                                    <p class="card-text text-muted mt-3">{{ blog.short_description | truncatewords:20 }}</p>
+                                    <a href="{% url 'blogs' blog.slug %}" class="text-warning fw-semibold text-decoration-none">
+                                        Read more <i class="bi bi-arrow-right"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -21,4 +33,5 @@
             {% endif %}
         </div>
     </div>
+</section>
 {% endblock %}
