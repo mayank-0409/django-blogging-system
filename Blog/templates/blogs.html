@@ -2,72 +2,70 @@
 {% load static %}
 
 {% block content %}
+<div class="container py-4">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
 
-<div class="container p-0 mt-4">
-    <main role="main" class="container p-0">
-        <div class="row">
+      <article>
+        <header class="mb-4">
+          <h1 class="mb-2">{{ single_post.title }}</h1>
+          <p class="text-muted mb-1">
+            {{ single_post.created_at|date:"F d, Y" }} by
+            {{ single_post.author.first_name }} {{ single_post.author.last_name }}
+          </p>
+        </header>
 
-            <div class="col-md-8 blog-main">
+        {% if single_post.featured_image %}
+          <img src="{{ single_post.featured_image.url }}" alt="{{ single_post.title }}" class="img-fluid rounded mb-4" />
+        {% endif %}
 
-                <div class="blog-post">
-                    <h1 class="blog-post-title">{{ single_post.title }}</h1>
+        <section class="mb-3">
+          <p class="lead">{{ single_post.short_description }}</p>
+        </section>
 
-                    <p class="blog-post-meta">
-                        {{ single_post.created_at | date:"F d, Y" }} by
-                        <a href="#">{{ single_post.author.first_name }} {{ single_post.author.last_name }}</a>
-                    </p>
+        <section class="mb-5">
+          <p>{{ single_post.blog_body }}</p>
+        </section>
+      </article>
 
-                    {% if single_post.featured_image %}
-                        <img src="{{ single_post.featured_image.url }}" alt="{{ single_post.title }}" class="img-fluid rounded mb-4">
-                    {% endif %}
+      <hr />
 
-                    <p class="lead">{{ single_post.short_description }}</p>
+      <section class="mb-4">
+        <h4>Comments ({{ comment_count }})</h4>
 
-                    <p>{{ single_post.blog_body }}</p>
+        {% if comments %}
+          {% for comment in comments %}
+            <div class="card mb-2">
+              <div class="card-body py-2 px-3">
+                <p class="mb-1">{{ comment }}</p>
+                <small class="text-muted">
+                  By {{ comment.user }} &middot; {{ comment.created_at|timesince }} ago
+                </small>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p class="text-muted">No Comments Yet</p>
+        {% endif %}
+      </section>
 
-                    <!-- Comments -->
-                    <h4>Comments ({{ comment_count }})</h4>
-                    {% if comments %}
-                        {% for comment in comments %}
-                            <div class="card mt-1">
-                                <div class="card-body">
-                                    <p class="card-text mb-0">{{ comment }}</p>
-                                    <span>
-                                        <small>By {{ comment.user }}</small>
-                                        <small> | {{ comment.created_at|timesince }} ago</small>
-                                    </span>
-                                </div>
-                            </div>
-                        {% endfor %}
-                    {% else %}
-                        No Comments Yet
-                    {% endif %}
+      <section class="mb-5">
+        {% if user.is_authenticated %}
+          <form method="POST">
+            {% csrf_token %}
+            <div class="mb-2">
+              <textarea name="comment" class="form-control" rows="3" placeholder="Write your comment"></textarea>
+            </div>
+            <button type="submit" class="btn btn-dark btn-sm">Post Comment</button>
+          </form>
+        {% else %}
+          <p>Please <a href="{% url 'login' %}">Login</a> to write a comment</p>
+        {% endif %}
+      </section>
 
-                    <br>
+      <a href="{% url 'home' %}" class="btn btn-outline-secondary btn-sm mb-4">Back to Home</a>
 
-                    <div class="form-group">
-                        {% if user.is_authenticated %}
-                            <form action="" method="POST">
-                                {% csrf_token %}
-                                <div class="form-group">
-                                    <textarea name="comment" class="form-control" placeholder="Write your comment"></textarea>
-                                    <input type="submit" value="submit" class="btn btn-primary mt-2">
-                                </div>
-                            </form>
-                        {% else %}
-                            <h4>Please <span><a href="{% url 'login' %}">Login</a></span> to write a comment</h4>
-                        {% endif %}
-                    </div>
-
-                </div><!-- /.blog-post -->
-
-                <nav class="blog-pagination mb-4">
-                    <a class="btn btn-outline-primary" href="{% url 'home' %}">Back to Home</a>
-                </nav>
-
-            </div><!-- /.blog-main -->
-        </div><!-- /.row -->
-    </main><!-- /.container -->
+    </div>
+  </div>
 </div>
-
 {% endblock %}
