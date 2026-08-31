@@ -1,6 +1,5 @@
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from blogs.models import Category, Blog
+from blogs.models import Blog
 from About.models import About
 from .forms import RegistrationForm
 from django.contrib.auth.forms import AuthenticationForm

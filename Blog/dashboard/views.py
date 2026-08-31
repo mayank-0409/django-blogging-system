@@ -5,7 +5,6 @@ from .forms import CategoryForm, BlogPostForm, EditModelForm, AddUserForm
 from django.template.defaultfilters import slugify
 from django.contrib.auth.models import User
 
-# Create your views here.
 
 @login_required(login_url='login')
 def dashboard(request):

@@ -3,8 +3,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Blog, Category, Comment
 from django.db.models import Q
 
-# Create your views here.
-
 def posts_by_category(request, category_id):
 
     # Fetch the post that belongs to the category with the id category_id
